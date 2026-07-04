@@ -30,7 +30,7 @@ If the save API isn't configured (see below) or the request fails, the edit stil
 The save API needs two secrets, set as Vercel **Project Settings → Environment Variables** (not committed to the repo):
 
 - `GITHUB_TOKEN` — a GitHub personal access token with **Contents: Read and write** access to this repo (create one at GitHub → Settings → Developer settings → Personal access tokens).
-- `ADMIN_CODE` — the same admin code used by the settings panel (currently `985213`).
+- `ADMIN_CODE` — the same admin code used by the settings panel.
 
 After adding both, trigger a redeploy so the function picks them up.
 
