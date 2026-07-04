@@ -9,10 +9,14 @@ The page is bundled as one standalone `.html` file with all assets (scripts, sty
 ## Usage
 
 1. Download or clone this repository.
-2. Open `KIM.html` in any modern web browser.
+2. Open `index.html` in any modern web browser.
 
 No server or installation is required — everything needed to render the page is packaged inside the file itself.
 
+## Deployment
+
+This repo can be deployed as-is on [Vercel](https://vercel.com): import the repository, choose the "Other" framework preset (no build command), and deploy. Since the page lives at `index.html`, it will be served directly at the root URL.
+
 ## Contents
 
-- `KIM.html` — the complete portfolio page.
+- `index.html` — the complete portfolio page.
