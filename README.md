@@ -19,7 +19,9 @@ No server or installation is required — everything needed to render the page i
 
 `content.json` at the repo root holds the hero/about/log/contact text and log post data (including any attached images, as compressed base64). The page fetches this file at load time, so updating `content.json` and redeploying is all that's needed to change what visitors see.
 
-Click the **⚙ 설정** button (bottom right) and enter the admin code to edit content or write a new log post directly from the live site. Saving calls `/api/save`, a serverless function that commits the updated `content.json` straight to this repo's `master` branch — Vercel then redeploys automatically, so changes go live within a minute or two with no manual export/import step.
+Click the **⚙ 설정** button (bottom right) and enter the admin code to unlock editing. Once authenticated, the Log section also reveals **+ 새 글 작성** and each post's **Edit**/**Delete** controls (hidden otherwise) — writing, editing, or deleting a post deploys immediately with no separate save step. General site text (hero/about/log title/contact) is edited from the settings panel itself and applies when you press 저장. A **로그아웃** button in the settings panel re-locks all of this until the admin code is entered again.
+
+All of the above calls `/api/save`, a serverless function that commits the updated `content.json` straight to this repo's `master` branch — Vercel then redeploys automatically, so changes go live within a minute or two with no manual export/import step.
 
 If the save API isn't configured (see below) or the request fails, the edit still applies to that browser's local storage as a fallback, and an alert explains that it wasn't deployed.
 
