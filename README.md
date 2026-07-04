@@ -17,12 +17,27 @@ No server or installation is required — everything needed to render the page i
 
 ## Editing content
 
-Click the **⚙ 설정** button (bottom right) and enter the admin code to edit hero/about/log/contact text. Saving there only persists to that browser's local storage — to actually update the live site, use the **내보내기 (Export)** button to download a `portfolio-content.json` snapshot, then have it applied to the page's source and redeployed.
+`content.json` at the repo root holds the hero/about/log/contact text and log post data (including any attached images, as compressed base64). The page fetches this file at load time, so updating `content.json` and redeploying is all that's needed to change what visitors see.
+
+Click the **⚙ 설정** button (bottom right) and enter the admin code to edit content or write a new log post directly from the live site. Saving calls `/api/save`, a serverless function that commits the updated `content.json` straight to this repo's `master` branch — Vercel then redeploys automatically, so changes go live within a minute or two with no manual export/import step.
+
+If the save API isn't configured (see below) or the request fails, the edit still applies to that browser's local storage as a fallback, and an alert explains that it wasn't deployed.
+
+### One-time setup for live editing
+
+The save API needs two secrets, set as Vercel **Project Settings → Environment Variables** (not committed to the repo):
+
+- `GITHUB_TOKEN` — a GitHub personal access token with **Contents: Read and write** access to this repo (create one at GitHub → Settings → Developer settings → Personal access tokens).
+- `ADMIN_CODE` — the same admin code used by the settings panel (currently `985213`).
+
+After adding both, trigger a redeploy so the function picks them up.
 
 ## Deployment
 
-This repo can be deployed as-is on [Vercel](https://vercel.com): import the repository, choose the "Other" framework preset (no build command), and deploy. Since the page lives at `index.html`, it will be served directly at the root URL.
+This repo can be deployed as-is on [Vercel](https://vercel.com): import the repository, choose the "Other" framework preset (no build command), and deploy. Since the page lives at `index.html`, it will be served directly at the root URL. The `api/save.js` file is automatically detected by Vercel as a serverless function.
 
 ## Contents
 
 - `index.html` — the complete portfolio page.
+- `content.json` — the live site content (text + log posts), fetched by the page at runtime.
+- `api/save.js` — serverless function the admin panel calls to commit content updates.
